@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6280874051553357838}
   - component: {fileID: 6280874051553357837}
   - component: {fileID: 6280874051553357836}
-  - component: {fileID: 3710211062119594614}
+  - component: {fileID: -5505020317972678402}
   m_Layer: 0
   m_Name: PREF_Border
   m_TagString: Border
@@ -132,7 +132,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &3710211062119594614
+--- !u!114 &-5505020317972678402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -141,6 +141,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6280874051553357835}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74f999a32c3ec4fbe91eb8a9e7e0d2e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 552e33557b757bd4e8ad043d45ea90ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
