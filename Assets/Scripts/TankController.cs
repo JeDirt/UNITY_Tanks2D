@@ -8,33 +8,12 @@ using UnityEngine.InputSystem;
 public class TankController : MonoBehaviour
 {
     
-    public TankInputActions tankControls;
+    /** Input system */
+    private TankInputActions _tankControls;
     private InputAction _move;
     private InputAction _fire;
-
-    private void Awake()
-    {
-        tankControls = new TankInputActions();
-    }
-
-    private void OnEnable()
-    {
-        _move = tankControls.Tank.Movement;
-        _move.Enable();
-
-        _fire = tankControls.Tank.Fire;
-        _fire.Enable();
-        _fire.performed += LaunchProjectile;
-    }
-
-    private void OnDisable()
-    {
-        _move.Disable();
-        _fire.Disable();
-    }
-
-   
-
+    
+    /** Tank properties */
     [SerializeField]
     private float tankSpeed = 10.0f;
     public GameObject projectilePrefab;
@@ -56,9 +35,13 @@ public class TankController : MonoBehaviour
     private float _horizontalInput;
     private float _verticalInput;
     private Rigidbody2D _tankRigidbody;
-    
+
     
     /** Engine events */
+    private void Awake()
+    {
+        _tankControls = new TankInputActions();
+    }
     void Start()
     {
         _tankRigidbody = GetComponent<Rigidbody2D>();
@@ -69,7 +52,23 @@ public class TankController : MonoBehaviour
         _timer += Time.deltaTime;
         Move();
     }
+    
+    
+    private void OnEnable()
+    {
+        _move = _tankControls.Tank.Movement;
+        _move.Enable();
 
+        _fire = _tankControls.Tank.Fire;
+        _fire.Enable();
+        _fire.performed += LaunchProjectile;
+    }
+    private void OnDisable()
+    {
+        _move.Disable();
+        _fire.Disable();
+    }
+    
     
     /** Tank functionality */
     private void Move()
