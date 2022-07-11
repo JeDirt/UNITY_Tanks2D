@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2399d2736f1c461a925cad106951953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blockSpriteRenderer: {fileID: 0}
+  blockSpriteRenderer: {fileID: 16144442}
   hitsCountToDestroy: 3
 --- !u!61 &16144441
 BoxCollider2D:
