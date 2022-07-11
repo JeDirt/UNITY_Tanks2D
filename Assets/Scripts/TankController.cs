@@ -3,9 +3,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using UnityEngine.InputSystem;
 
 public class TankController : MonoBehaviour
 {
+    
+    public TankInputActions tankControls;
+    private InputAction _move;
+    private InputAction _fire;
+
+    private void Awake()
+    {
+        tankControls = new TankInputActions();
+    }
+
+    private void OnEnable()
+    {
+        _move = tankControls.Tank.Movement;
+        _move.Enable();
+
+        _fire = tankControls.Tank.Fire;
+        _fire.Enable();
+        _fire.performed += LaunchProjectile;
+    }
+
+    private void OnDisable()
+    {
+        _move.Disable();
+        _fire.Disable();
+    }
+
+   
 
     [SerializeField]
     private float tankSpeed = 10.0f;
@@ -38,8 +66,8 @@ public class TankController : MonoBehaviour
     }
     private void Update()
     {
+        _timer += Time.deltaTime;
         Move();
-        LaunchProjectile();
     }
 
     
@@ -75,26 +103,23 @@ public class TankController : MonoBehaviour
         leftTrackAnimator.SetBool("bIsMoving", _bIsMoving);
 
     }
-    private void LaunchProjectile()
+
+    private void LaunchProjectile(InputAction.CallbackContext callbackContext)
     {
 
-        _timer += Time.deltaTime;
         if (!(_timer >= fireRate)) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            var projectile = Instantiate(projectilePrefab, projectileSpawnLocation.position, transform.rotation);
-            if (!projectile) return;
-            _timer = 0.0f;
+        var projectile = Instantiate(projectilePrefab, projectileSpawnLocation.position, transform.rotation);
+        _timer = 0.0f;
+        
+        if (!projectile) return;
 
-            var rigidBody = projectile.GetComponent<Rigidbody2D>();
-            if (rigidBody)
-            {
-                rigidBody.velocity = projectileSpawnLocation.up * projectileMovementSpeed;
-            }
+        var rigidBody = projectile.GetComponent<Rigidbody2D>();
+        if (rigidBody)
+        {
+            rigidBody.velocity = projectileSpawnLocation.up * projectileMovementSpeed;
         }
         
     }
-
     
 }
